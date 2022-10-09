@@ -1,27 +1,12 @@
 <!-- manque encore le php -->
-<?PHP
+<?PHP $titre = 'Attribution';
 
-include("_debut.inc.php");
-include("_gestionBase.inc.php"); 
-include("_controlesEtGestionErreurs.inc.php");
+require("Modele.php"); 
+require("_controlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
+$connexion = getConnexion();
 
-$connexion=connect();
-if (!$connexion)
-{
-   ajouterErreur("Echec de la connexion au serveur MySql");
-   afficherErreurs();
-   exit();
-}
-if (!selectBase($connexion))
-{
-   ajouterErreur("La base de données festival est inexistante ou non accessible");
-   afficherErreurs();
-   exit();
-}
-
-// CONSULTER LES ATTRIBUTIONS DE TOUS LES ÉTABLISSEMENTS
-
+ob_start ();
 // IL FAUT QU'IL Y AIT AU MOINS UN ÉTABLISSEMENT OFFRANT DES CHAMBRES POUR  
 // AFFICHER LE LIEN VERS LA MODIFICATION
 $nbEtab=obtenirNbEtabOffrantChambres($connexion);
@@ -103,5 +88,10 @@ if ($nbEtab!=0)
       $lgEtab=$rsEtab->fetch(PDO::FETCH_ASSOC);
    } // Fin de la boucle sur les établissements
 }
+$contenu = ob_get_clean ();
+
+require 'template.php';
+
+echo $contenu
 
 ?>

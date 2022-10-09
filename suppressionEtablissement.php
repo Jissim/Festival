@@ -1,24 +1,11 @@
-<?php
+<?php $titre = 'Supprimer un établissement';
 
-include("_debut.inc.php");
-include("_gestionBase.inc.php"); 
-include("_controlesEtGestionErreurs.inc.php");
+require("Modele.php"); 
+require("_controlesEtGestionErreurs.inc.php");
+// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
+$connexion = getConnexion();
 
-// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival
-
-$connexion=connect();
-if (!$connexion)
-{
-   ajouterErreur("Echec de la connexion au serveur MySql");
-   afficherErreurs();
-   exit();
-}
-if (!selectBase($connexion))
-{
-   ajouterErreur("La base de données festival est inexistante ou non accessible");
-   afficherErreurs();
-   exit();
-}
+ob_start ();
 
 // SUPPRIMER UN ÉTABLISSEMENT 
 
@@ -48,5 +35,9 @@ else
    <br><br><center><h5>L'établissement $nom a été supprimé</h5>
    <a href='listeEtablissements.php?'>Retour</a></center>";
 }
+$contenu = ob_get_clean ();
 
+require 'template.php';
+
+echo $contenu
 ?>

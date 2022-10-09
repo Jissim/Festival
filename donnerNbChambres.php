@@ -1,24 +1,11 @@
-<?php
+<?php $titre = 'Nombre de Chambre';
 
-include("_debut.inc.php");
-include("_gestionBase.inc.php"); 
-include("_controlesEtGestionErreurs.inc.php");
+require("Modele.php"); 
+require("_controlesEtGestionErreurs.inc.php");
+// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
+$connexion = getConnexion();
 
-// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival
-
-$connexion=connect();
-if (!$connexion)
-{
-   ajouterErreur("Echec de la connexion au serveur MySql");
-   afficherErreurs();
-   exit();
-}
-if (!selectBase($connexion))
-{
-   ajouterErreur("La base de données festival est inexistante ou non accessible");
-   afficherErreurs();
-   exit();
-}
+ob_start ();
 
 // SÉLECTIONNER LE NOMBRE DE CHAMBRES SOUHAITÉES
 
@@ -49,5 +36,9 @@ echo "
    <a href='modificationAttributions.php?action=demanderModifAttrib'>Retour</a>
    </center>
 </form>";
+$contenu = ob_get_clean ();
 
+require 'template.php';
+
+echo $contenu
 ?>

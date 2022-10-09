@@ -1,25 +1,11 @@
-<?php
+<?php $titre = 'Modifier un établissement';
 
-include("_debut.inc.php");
-include("_gestionBase.inc.php"); 
-include("_controlesEtGestionErreurs.inc.php");
+require("Modele.php"); 
+require("_controlesEtGestionErreurs.inc.php");
+// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
+$connexion = getConnexion();
 
-// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival
-
-$connexion=connect();
-if (!$connexion)
-{
-   ajouterErreur("Echec de la connexion au serveur MySql");
-   afficherErreurs();
-   exit();
-}
-if (!selectBase($connexion))
-{
-   ajouterErreur("La base de données festival est inexistante ou non accessible");
-   afficherErreurs();
-   exit();
-}
-
+ob_start ();
 // MODIFIER UN ÉTABLISSEMENT 
 
 // Déclaration du tableau des civilités
@@ -196,5 +182,9 @@ if ($action=='validerModifEtab')
       <h5><center>La modification de l'établissement a été effectuée</center></h5>";
    }
 }
+$contenu = ob_get_clean ();
 
+require 'template.php';
+
+echo $contenu
 ?>
