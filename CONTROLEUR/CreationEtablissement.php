@@ -1,7 +1,7 @@
 <?php $titre = 'Créer un établissement';
 
 require("Modele.php"); 
-require("CONTROLEUR_controlesEtGestionErreurs.inc.php");
+require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
 

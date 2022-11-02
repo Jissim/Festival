@@ -8,6 +8,6 @@ try {
 }
 catch (Exception $e) {
  $msgErreur = $e->getMessage();
-  require 'VueErreur.php';
+  require 'Erreur.php';
 }
 

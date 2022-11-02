@@ -40,7 +40,7 @@ echo"
 
 $contenu = ob_get_clean (); 
 
-require 'Vuetemplate.php'; 
+require 'Template.php'; 
 
 
 
