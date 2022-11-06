@@ -1,6 +1,6 @@
 <?php $titre = 'Supprimer un établissement';
 
-require("Modele.php"); 
+require("../MODELE/Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -21,9 +21,9 @@ if ($_REQUEST['action']=='demanderSupprEtab')
    echo "
    <br><center><h5>Souhaitez-vous vraiment supprimer l'établissement $nom ? 
    <br><br>
-   <a href='suppressionEtablissement.php?action=validerSupprEtab&amp;id=$id'>
+   <a href='SuppressionEtablissement.php?action=validerSupprEtab&amp;id=$id'>
    Oui</a>&nbsp; &nbsp; &nbsp; &nbsp;
-   <a href='listeEtablissements.php?'>Non</a></h5></center>";
+   <a href='ListeEtablissements.php?'>Non</a></h5></center>";
 }
 
 // Cas 2ème étape (on vient de suppressionEtablissement.php)
@@ -33,11 +33,10 @@ else
    supprimerEtablissement($connexion, $id);
    echo "
    <br><br><center><h5>L'établissement $nom a été supprimé</h5>
-   <a href='listeEtablissements.php?'>Retour</a></center>";
+   <a href='ListeEtablissements.php?'>Retour</a></center>";
 }
 $contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
+require '../VUE/Template.php';
 
-echo $contenu
 ?>

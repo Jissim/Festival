@@ -1,6 +1,6 @@
 <?php $titre = 'Attribution des chambres';
 
-require("Modele.php"); 
+require("../MODELE/Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -122,7 +122,7 @@ class='tabQuadrille'>";
             $nbMax = $nbChLib + $nbOccupGroupe;
             echo "
             <td class='reserve'>
-            <a href='donnerNbChambres.php?idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbMax'>
+            <a href='DonnerNbChambres.php?idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbMax'>
             $nbOccupGroupe</a></td>";
          }
          else
@@ -134,7 +134,7 @@ class='tabQuadrille'>";
             {
                echo "
                <td class='reserveSiLien'>
-               <a href='donnerNbChambres.php?idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbChLib'>
+               <a href='DonnerNbChambres.php?idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbChLib'>
                __</a></td>";
             }
             else
@@ -155,7 +155,7 @@ echo "
 echo "
 <table align='center' width='80%'>
    <tr>
-      <td width='34%' align='left'><a href='consultationAttributions.php'>Retour</a>
+      <td width='34%' align='left'><a href='ConsultationAttributions.php'>Retour</a>
       </td>
       <td class='reserveSiLien'>&nbsp;</td>
       <td width='30%' align='left'>Réservation possible si lien</td>
@@ -165,7 +165,6 @@ echo "
 </table>";
 $contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
+require '../VUE/Template.php';
 
-echo $contenu
 ?>

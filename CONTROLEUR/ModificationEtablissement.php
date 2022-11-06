@@ -1,6 +1,6 @@
 <?php $titre = 'Modifier un établissement';
 
-require("Modele.php"); 
+require("../MODELE/Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -58,7 +58,7 @@ else
 }
 
 echo "
-<form method='POST' action='modificationEtablissement.php?'>
+<form method='POST' action='ModificationEtablissement.php?'>
    <input type='hidden' value='validerModifEtab' name='action'>
    <table width='85%' cellspacing='0' cellpadding='0' align='center' 
    class='tabNonQuadrille'>
@@ -161,7 +161,7 @@ echo "
          </td>
       </tr>
       <tr>
-         <td colspan='2' align='center'><a href='listeEtablissements.php'>Retour</a>
+         <td colspan='2' align='center'><a href='ListeEtablissements.php'>Retour</a>
          </td>
       </tr>
    </table>
@@ -184,7 +184,6 @@ if ($action=='validerModifEtab')
 }
 $contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
+require '../VUE/Template.php';
 
-echo $contenu
 ?>

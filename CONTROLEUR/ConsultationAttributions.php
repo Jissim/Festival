@@ -1,7 +1,7 @@
 <!-- manque encore le php -->
 <?PHP $titre = 'Attribution';
 
-require("Modele.php"); 
+require("../MODELE/Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -15,7 +15,7 @@ if ($nbEtab!=0)
    echo "
    <table width='75%' cellspacing='0' cellpadding='0' align='center'
    <tr><td>
-   <a href='modificationAttributions.php?action=demanderModifAttrib'>
+   <a href='ModificationAttributions.php?action=demanderModifAttrib'>
    Effectuer ou modifier les attributions</a></td></tr></table><br><br>";
    
    // POUR CHAQUE ÉTABLISSEMENT : AFFICHAGE D'UN TABLEAU COMPORTANT 2 LIGNES 
@@ -90,8 +90,8 @@ if ($nbEtab!=0)
 }
 $contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
+require '../VUE/Template.php';
 
-echo $contenu
+
 
 ?>

@@ -8,5 +8,4 @@ ob_start();
 
 require 'Template.php'; 
 
-echo $contenu;
 ?>

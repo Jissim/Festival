@@ -1,7 +1,7 @@
 <!-- Manque encore le php -->
 <?php $titre = 'Liste des établissements';
 
-require("Modele.php"); 
+require("../MODELE/Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -34,11 +34,11 @@ class='tabNonQuadrille'>
          <td width='52%'>$nom</td>
          
          <td width='16%' align='center'> 
-         <a href='detailEtablissement.php?id=$id'>
+         <a href='DetailEtablissement.php?id=$id'>
          Voir détail</a></td>
          
          <td width='16%' align='center'> 
-         <a href='modificationEtablissement.php?action=demanderModifEtab&amp;id=$id'>
+         <a href='ModificationEtablissement.php?action=demanderModifEtab&amp;id=$id'>
          Modifier</a></td>";
       	
          // S'il existe déjà des attributions pour l'établissement, il faudra
@@ -47,7 +47,7 @@ class='tabNonQuadrille'>
 			{
             echo "
             <td width='16%' align='center'> 
-            <a href='suppressionEtablissement.php?action=demanderSupprEtab&amp;id=$id'>
+            <a href='SuppressionEtablissement.php?action=demanderSupprEtab&amp;id=$id'>
             Supprimer</a></td>";
          }
          else
@@ -63,13 +63,12 @@ class='tabNonQuadrille'>
    }   
    echo "
    <tr class='ligneTabNonQuad'>
-      <td colspan='4'><a href='creationEtablissement.php?action=demanderCreEtab'>
+      <td colspan='4'><a href='CreationEtablissement.php?action=demanderCreEtab'>
       Création d'un établissement</a ></td>
   </tr>
 </table>";
 $contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
+require '../VUE/Template.php';
 
-echo $contenu
 ?>

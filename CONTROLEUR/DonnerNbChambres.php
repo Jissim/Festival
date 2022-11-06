@@ -1,6 +1,6 @@
 <?php $titre = 'Nombre de Chambre';
 
-require("Modele.php"); 
+require("../MODELE/Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -14,7 +14,7 @@ $idGroupe=$_REQUEST['idGroupe'];
 $nbChambres=$_REQUEST['nbChambres'];
 
 echo "
-<form method='POST' action='modificationAttributions.php'>
+<form method='POST' action='ModificationAttributions.php'>
 	<input type='hidden' value='validerModifAttrib' name='action'>
    <input type='hidden' value='$idEtab' name='idEtab'>
    <input type='hidden' value='$idGroupe' name='idGroupe'>";
@@ -33,12 +33,11 @@ echo "
    </select></h5>
    <input type='submit' value='Valider' name='valider'>&nbsp&nbsp&nbsp&nbsp
    <input type='reset' value='Annuler' name='Annuler'><br><br>
-   <a href='modificationAttributions.php?action=demanderModifAttrib'>Retour</a>
+   <a href='ModificationAttributions.php?action=demanderModifAttrib'>Retour</a>
    </center>
 </form>";
 $contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
+require '../VUE/Template.php';
 
-echo $contenu
 ?>

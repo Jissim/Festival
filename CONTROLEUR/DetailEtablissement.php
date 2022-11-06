@@ -1,6 +1,6 @@
 <?php $titre = 'Détail';
 
-require("Modele.php"); 
+require("../MODELE/Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -80,13 +80,12 @@ class='tabNonQuadrille'>
 </table>
 <table align='center'>
    <tr>
-      <td align='center'><a href='listeEtablissements.php'>Retour</a>
+      <td align='center'><a href='ListeEtablissements.php'>Retour</a>
       </td>
    </tr>
 </table>";
 $contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
+require '../VUE/Template.php';
 
-echo $contenu
 ?>
