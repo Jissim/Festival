@@ -1,6 +1,6 @@
 <?php $titre = 'Détail';
 
-require("../MODELE/Gestion.php"); 
+require("Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -25,57 +25,70 @@ $nomResponsable=$lgEtab['nomResponsable'];
 $prenomResponsable=$lgEtab['prenomResponsable'];
 $nombreChambresOffertes=$lgEtab['nombreChambresOffertes'];
 
-echo "
+?>
+
 <table width='60%' cellspacing='0' cellpadding='0' align='center' 
 class='tabNonQuadrille'>
    
    <tr class='enTeteTabNonQuad'>
-      <td colspan='3'>$nom</td>
+      <td colspan='3'><?=$nom?></td>
    </tr>
    <tr class='ligneTabNonQuad'>
       <td  width='20%'> Id: </td>
-      <td>$id</td>
+      <td><?=$id?></td>
    </tr>
    <tr class='ligneTabNonQuad'>
       <td> Adresse: </td>
-      <td>$adresseRue</td>
+      <td><?=$adresseRue?></td>
    </tr>
    <tr class='ligneTabNonQuad'>
       <td> Code postal: </td>
-      <td>$codePostal</td>
+      <td><?=$codePostal?></td>
    </tr>
    <tr class='ligneTabNonQuad'>
       <td> Ville: </td>
-      <td>$ville</td>
+      <td><?=$ville?></td>
    </tr>
    <tr class='ligneTabNonQuad'>
       <td> Téléphone: </td>
-      <td>$tel</td>
+      <td><?=$tel?></td>
    </tr>
    <tr class='ligneTabNonQuad'>
       <td> E-mail: </td>
-      <td>$adresseElectronique</td>
+      <td><?=$adresseElectronique?></td>
    </tr>
    <tr class='ligneTabNonQuad'>
-      <td> Type: </td>";
+      <td> Type: </td>
+
+      <?php
+
       if ($type==1)
       {
-         echo "<td> Etablissement scolaire </td>";
+         ?>
+         <td> Etablissement scolaire </td>
+
+      <?php
+
       }
       else
       {
-         echo "<td> Autre établissement </td>";
+         ?>
+         <td> Autre établissement </td>
+
+      <?php   
       }
-   echo "
+
+   ?>
+
    </tr>
    <tr class='ligneTabNonQuad'>
       <td> Responsable: </td>
-      <td>$civiliteResponsable&nbsp; $nomResponsable&nbsp; $prenomResponsable
+      <td><?=$civiliteResponsable?>&nbsp; <?=$nomResponsable?>&nbsp; <?=$prenomResponsable?>
       </td>
    </tr> 
    <tr class='ligneTabNonQuad'>
       <td> Offre: </td>
-      <td>$nombreChambresOffertes&nbsp;chambre(s)</td>
+      <td><?=$nombreChambresOffertes?>&nbsp;chambre(s)</td>
    </tr>
 </table>
 <table align='center'>
@@ -83,9 +96,12 @@ class='tabNonQuadrille'>
       <td align='center'><a href='ListeEtablissements.php'>Retour</a>
       </td>
    </tr>
-</table>";
+</table>
+
+<?php
+
 $contenu = ob_get_clean ();
 
-require '../VUE/Template.php';
+require 'Template.php';
 
 ?>

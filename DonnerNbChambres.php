@@ -1,6 +1,6 @@
 <?php $titre = 'Nombre de Chambre';
 
-require("../MODELE/Gestion.php"); 
+require("Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -13,31 +13,43 @@ $idEtab=$_REQUEST['idEtab'];
 $idGroupe=$_REQUEST['idGroupe'];
 $nbChambres=$_REQUEST['nbChambres'];
 
-echo "
+?>
+
 <form method='POST' action='ModificationAttributions.php'>
 	<input type='hidden' value='validerModifAttrib' name='action'>
-   <input type='hidden' value='$idEtab' name='idEtab'>
-   <input type='hidden' value='$idGroupe' name='idGroupe'>";
-   $nomGroupe=obtenirNomGroupe($connexion, $idGroupe);
+   <input type='hidden' value='<?=$idEtab?>' name='idEtab'>
+   <input type='hidden' value='<?=$idGroupe?>' name='idGroupe'>
+
+   <?php $nomGroupe=obtenirNomGroupe($connexion, $idGroupe); ?>
    
-   echo "
+   
    <br><center><h5>Combien de chambres souhaitez-vous pour le 
-   groupe $nomGroupe dans cet établissement ?";
+   groupe <?= $nomGroupe?> dans cet établissement ?
    
-   echo "&nbsp;<select name='nbChambres'>";
+   &nbsp;<select name='nbChambres'>
+
+   <?php
+
    for ($i=0; $i<=$nbChambres; $i++)
    {
-      echo "<option>$i</option>";
+      ?>
+      <option><?=$i?></option>
+
+   <?php
    }
-   echo "
+
+   ?>
    </select></h5>
    <input type='submit' value='Valider' name='valider'>&nbsp&nbsp&nbsp&nbsp
    <input type='reset' value='Annuler' name='Annuler'><br><br>
    <a href='ModificationAttributions.php?action=demanderModifAttrib'>Retour</a>
    </center>
-</form>";
+</form>
+
+<?php 
+
 $contenu = ob_get_clean ();
 
-require '../VUE/Template.php';
+require 'Template.php';
 
 ?>

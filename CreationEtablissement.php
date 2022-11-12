@@ -1,6 +1,6 @@
 <?php $titre = 'Créer un établissement';
 
-require("../MODELE/Gestion.php"); 
+require("Gestion.php"); 
 require("ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
@@ -57,7 +57,8 @@ else
    }
 }
 
-echo "
+?>
+
 <form method='POST' action='CreationEtablissement.php?'>
    <input type='hidden' value='validerCreEtab' name='action'>
    <table width='85%' align='center' cellspacing='0' cellpadding='0' 
@@ -68,59 +69,72 @@ echo "
       </tr>
       <tr class='ligneTabNonQuad'>
          <td> Id*: </td>
-         <td><input type='text' value='$id' name='id' size ='10' 
+         <td><input type="text" value="<?=$id?>" name="id" size ="10" 
          maxlength='8'></td>
-      </tr>";
+      </tr>
      
-      echo '
       <tr class="ligneTabNonQuad">
          <td> Nom*: </td>
-         <td><input type="text" value="'.$nom.'" name="nom" size="50" 
+         <td><input type="text" value="<?=$nom?>" name="nom" size="50" 
          maxlength="45"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Adresse*: </td>
-         <td><input type="text" value="'.$adresseRue.'" name="adresseRue" 
+         <td><input type="text" value="<?=$adresseRue?>" name="adresseRue" 
          size="50" maxlength="45"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Code postal*: </td>
-         <td><input type="text" value="'.$codePostal.'" name="codePostal" 
+         <td><input type="text" value="<?=$codePostal?>" name="codePostal" 
          size="4" maxlength="5"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Ville*: </td>
-         <td><input type="text" value="'.$ville.'" name="ville" size="40" 
+         <td><input type="text" value="<?=$ville?>" name="ville" size="40" 
          maxlength="35"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Téléphone*: </td>
-         <td><input type="text" value="'.$tel.'" name="tel" size ="20" 
+         <td><input type="text" value="<?=$tel?>" name="tel" size ="20" 
          maxlength="10"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> E-mail: </td>
-         <td><input type="text" value="'.$adresseElectronique.'" name=
+         <td><input type="text" value="<?=$adresseElectronique?>" name=
          "adresseElectronique" size ="75" maxlength="70"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Type*: </td>
-         <td>';
+         <td>
+
+            <?php
+
             if ($type==1)
             {
-               echo " 
+               ?>
+
                <input type='radio' name='type' value='1' checked>  
                Etablissement Scolaire
-               <input type='radio' name='type' value='0'>  Autre";
+               <input type='radio' name='type' value='0'>  Autre
+
+               <?php
+
              }
              else
              {
-                echo " 
+
+               ?>
+                
                 <input type='radio' name='type' value='1'> 
                 Etablissement Scolaire
-                <input type='radio' name='type' value='0' checked> Autre";
+                <input type='radio' name='type' value='0' checked> Autre
+               
+               <?php
+
               }
-           echo "
+
+            ?>
+
            </td>
          </tr>
          <tr class='ligneTabNonQuad'>
@@ -128,33 +142,48 @@ echo "
          </tr>
          <tr class='ligneTabNonQuad'>
             <td> Civilité*: </td>
-            <td> <select name='civiliteResponsable'>";
+            <td> <select name='civiliteResponsable'>
+
+              <?php
+
                for ($i=0; $i<3; $i=$i+1)
                   if ($tabCivilite[$i]==$civiliteResponsable) 
                   {
-                     echo "<option selected>$tabCivilite[$i]</option>";
+
+                     ?>
+                     <option selected><?=$tabCivilite[$i]?></option>
+                     
+                  <?php
+
                   }
                   else
                   {
-                     echo "<option>$tabCivilite[$i]</option>";
+
+                     ?>
+                     <option><?=$tabCivilite[$i]?></option>
+
+                  <?php
+
                   }
-               echo '
+
+               ?>
+               
                </select>&nbsp; &nbsp; &nbsp; &nbsp; Nom*: 
-               <input type="text" value="'.$nomResponsable.'" name=
+               <input type="text" value="<?=$nomResponsable?>" name=
                "nomResponsable" size="26" maxlength="25">
                &nbsp; &nbsp; &nbsp; &nbsp; Prénom: 
-               <input type="text"  value="'.$prenomResponsable.'" name=
+               <input type="text"  value="<?=$prenomResponsable?>" name=
                "prenomResponsable" size="26" maxlength="25">
             </td>
          </tr>
           <tr class="ligneTabNonQuad">
             <td> Nombre chambres offertes*: </td>
-            <td><input type="text" value="'.$nombreChambresOffertes.'" name=
+            <td><input type="text" value="<?=$nombreChambresOffertes?>" name=
             "nombreChambresOffertes" size ="2" maxlength="3"></td>
          </tr>
-   </table>';
+   </table>
    
-   echo "
+ 
    <table align='center' cellspacing='15' cellpadding='0'>
       <tr>
          <td align='right'><input type='submit' value='Valider' name='valider'>
@@ -167,7 +196,9 @@ echo "
          </td>
       </tr>
    </table>
-</form>";
+</form>
+
+<?php
 
 // En cas de validation du formulaire : affichage des erreurs ou du message de 
 // confirmation
@@ -179,12 +210,15 @@ if ($action=='validerCreEtab')
    }
    else
    {
-      echo "
-      <h5><center>La création de l'établissement a été effectuée</center></h5>";
+      ?>
+      <h5><center>La création de l'établissement a été effectuée</center></h5>
+
+   <?php
+
    }
 }
 $contenu = ob_get_clean ();
 
-require '../VUE/Template.php';
+require 'Template.php';
 
 ?>
