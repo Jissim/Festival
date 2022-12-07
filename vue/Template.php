@@ -6,7 +6,9 @@
 <title><?= $titre ?></title> <!-- Element spécifique -->
 <meta http-equiv="Content-Language" content="fr">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="cssGeneral.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+            @import url("css/cssGeneral.css");
+</style>
 </head>
 <body class="basePage">
 
