@@ -22,10 +22,6 @@ else {
     $action = "template";
 
 }
-catch (Exception $e) {
- $msgErreur = $e->getMessage();
-  require 'Erreur.php';
-}  
 
 
 //if (isset($_GET["action"])) {
