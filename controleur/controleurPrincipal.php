@@ -2,7 +2,7 @@
 
 function controleurPrincipal($action) {
     $lesActions = array();
-    $lesActions["template"] = "Template.php";
+    $lesActions["template"] = "vue/Template.php";
     $lesActions["accueil"] = "Accueil.php";
     $lesActions["etablissement"] = "ListeEtablissements.php";
     $lesActions["attribution"] = "ConsultationAttributions.php";
