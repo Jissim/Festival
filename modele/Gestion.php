@@ -3,29 +3,8 @@
 
 // FONCTIONS DE CONNEXION
 // utilisation de la methode pdo 
+include_once "bd.inc.php";
 
-function getConnexion()
-{
-   $connexion = connect();
-   if (!$connexion) {
-      ajouterErreur("Echec de la connexion au serveur MySql");
-      afficherErreurs();
-      exit();
-   }
-   if (!selectBase($connexion)) {
-      ajouterErreur("La base de données festival est inexistante ou non accessible");
-      afficherErreurs();
-      exit();
-   }
-   return $connexion;
-}
-
-function connect()
-{
-    $dbh = new PDO('mysql:host=localhost;dbname=festival;charset=utf8',
-    'root','root',array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-  return $dbh;
-}
 // {
 //    $user="root";
 //    $pass="root";
