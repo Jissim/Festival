@@ -24,9 +24,9 @@
 <table width="80%" cellpadding="0" cellspacing="0" class="tabMenu" align="center">
    <tr>
       <td class="menu"><a href="./VUE/Accueil.php">Accueil</a></td>
-      <td class="menu"><a href="./CONTROLEUR/listeEtablissements.php">
+      <td class="menu"><a href="/CONTROLEUR/listeEtablissements.php">
       Gestion établissements</a></td>
-      <td class="menu"><a href="./CONTROLEUR/ConsultationAttributions.php">
+      <td class="menu"><a href="/CONTROLEUR/ConsultationAttributions.php">
       Attributions chambres</a></td>
    </tr>
 </table>

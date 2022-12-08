@@ -1,8 +1,8 @@
 <!-- manque encore le php -->
 <?PHP $titre = 'Attribution';
 
-require("Modele.php"); 
-require("./CONTROLE/ControlesEtGestionErreurs.inc.php");
+require("./MODELE/Gestion.php"); 
+require("./CONTROLEUR/ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
 

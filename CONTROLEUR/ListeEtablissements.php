@@ -1,7 +1,7 @@
 <!-- Manque encore le php -->
 <?php $titre = 'Liste des établissements';
 
-require("Modele.php"); 
+require("./MODELE/Gestion.php"); 
 require("./CONTROLEUR/ControlesEtGestionErreurs.inc.php");
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
 $connexion = getConnexion();
