@@ -117,14 +117,22 @@ function nbErreurs()
  
 function afficherErreurs()
 {
-   echo '<div class="msgErreur">';
-   echo '<ul>';
+   ?>
+   <div class="msgErreur">
+   <ul>
+   
+   <?php
    foreach($_REQUEST['erreurs'] as $erreur)
 	{
-      echo "<li>$erreur</li>";
+      ?>
+      <li><?=$erreur?></li>
+      <?php
 	}
-   echo '</ul>';
-   echo '</div>';
+
+   ?>
+   </ul>
+   </div>
+   <?php
 } 
 
 ?>
