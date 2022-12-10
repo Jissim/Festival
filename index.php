@@ -1,6 +1,6 @@
 <!-- manque le php -->
 <?php
-require 'Modele.php';
+require '/MODELE/Gestion.php';
 
 try {
   $connexion = connect();
