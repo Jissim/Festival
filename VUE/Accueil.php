@@ -37,11 +37,11 @@ echo"
       </td>
    </tr>
 </table>"; 
+?>
+<?php $contenu = ob_get_clean (); 
 
-$contenu = ob_get_clean (); 
-
-require 'Template.php'; 
-
+require './VUE/Template.php';?>
+<?= $contenu ?>
 
 
 

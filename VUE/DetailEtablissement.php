@@ -1,12 +1,10 @@
-<?php $titre = 'Détail';
+<?php 
+    $title = 'Festival - Detail Etablissement'; 
+?> 
+<?php ob_start() ?>
+<?php
 
-require("Modele.php"); 
-require("ControlesEtGestionErreurs.inc.php");
-// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
-$connexion = getConnexion();
-
-ob_start ();
-
+$connexion = createConnexion();
 $id=$_REQUEST['id'];  
 
 // OBTENIR LE DÉTAIL DE L'ÉTABLISSEMENT SÉLECTIONNÉ
@@ -19,7 +17,7 @@ $codePostal=$lgEtab['codePostal'];
 $ville=$lgEtab['ville'];
 $tel=$lgEtab['tel'];
 $adresseElectronique=$lgEtab['adresseElectronique'];
-$type=$lgEtab['type'];
+$type=$lgEtab['typeEtablissement'];
 $civiliteResponsable=$lgEtab['civiliteResponsable'];
 $nomResponsable=$lgEtab['nomResponsable'];
 $prenomResponsable=$lgEtab['prenomResponsable'];
@@ -80,13 +78,11 @@ class='tabNonQuadrille'>
 </table>
 <table align='center'>
    <tr>
-      <td align='center'><a href='listeEtablissements.php'>Retour</a>
+      <td align='center'><a href='index.php?action=listeEtablissements'>Retour</a>
       </td>
    </tr>
 </table>";
-$contenu = ob_get_clean ();
-
-require 'Vuetemplate.php';
-
-echo $contenu
 ?>
+<?php $contenu = ob_get_clean();
+ require './VUE/Template.php'; ?>
+<?= $contenu ?>

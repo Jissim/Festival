@@ -1,24 +1,19 @@
-<?php $titre = 'Modifier un établissement';
-
-require("Modele.php"); 
-require("ControlesEtGestionErreurs.inc.php");
-// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
-$connexion = getConnexion();
-
-ob_start ();
-// MODIFIER UN ÉTABLISSEMENT 
+<?php 
+    $title = 'Festival -  Modifier Etablissement'; 
+?> 
+<?php ob_start() ?>
+<?php
 
 // Déclaration du tableau des civilités
-// $tabCivilite=array("M.","Mme","Melle"); 
-$tabCivilite=["M.","Mme","Melle"]; 
-
-$action=$_REQUEST['action'];
+$tabCivilite=["M.","Mme","Melle"];  
+$modif=$_REQUEST['modif'];
+//$action=$_REQUEST['action']; inutile
 $id=$_REQUEST['id'];
 
 // Si on ne "vient" pas de ce formulaire, il faut récupérer les données à partir 
 // de la base (en appelant la fonction obtenirDetailEtablissement) sinon on 
 // affiche les valeurs précédemment contenues dans le formulaire
-if ($action=='demanderModifEtab')
+if ($modif=='demanderModifEtab')
 {
    $lgEtab=obtenirDetailEtablissement($connexion, $id);
   
@@ -28,7 +23,7 @@ if ($action=='demanderModifEtab')
    $ville=$lgEtab['ville'];
    $tel=$lgEtab['tel'];
    $adresseElectronique=$lgEtab['adresseElectronique'];
-   $type=$lgEtab['type'];
+   $type=$lgEtab['typeEtablissement'];
    $civiliteResponsable=$lgEtab['civiliteResponsable'];
    $nomResponsable=$lgEtab['nomResponsable'];
    $prenomResponsable=$lgEtab['prenomResponsable'];
@@ -48,7 +43,8 @@ else
    $prenomResponsable=$_REQUEST['prenomResponsable'];
    $nombreChambresOffertes=$_REQUEST['nombreChambresOffertes'];
 
-   verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, $ville, $tel, $nomResponsable, $nombreChambresOffertes);      
+   verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, $ville,  
+                        $tel, $nomResponsable, $nombreChambresOffertes);      
    if (nbErreurs()==0)
    {        
       modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, $ville, 
@@ -58,8 +54,8 @@ else
 }
 
 echo "
-<form method='POST' action='modificationEtablissement.php?'>
-   <input type='hidden' value='validerModifEtab' name='action'>
+<form method='POST' action='index.php?&action=modificationEtablissements'>
+   <input type='hidden' value='validerModifEtab' name='modif'>
    <table width='85%' cellspacing='0' cellpadding='0' align='center' 
    class='tabNonQuadrille'>
    
@@ -161,7 +157,7 @@ echo "
          </td>
       </tr>
       <tr>
-         <td colspan='2' align='center'><a href='listeEtablissements.php'>Retour</a>
+         <td colspan='2' align='center'><a href='index.php?action=listeEtablissements'>Retour</a>
          </td>
       </tr>
    </table>
@@ -170,7 +166,7 @@ echo "
 
 // En cas de validation du formulaire : affichage des erreurs ou du message de 
 // confirmation
-if ($action=='validerModifEtab')
+if ($modif=='validerModifEtab')
 {
    if (nbErreurs()!=0)
    {
@@ -182,9 +178,8 @@ if ($action=='validerModifEtab')
       <h5><center>La modification de l'établissement a été effectuée</center></h5>";
    }
 }
-$contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
-
-echo $contenu
 ?>
+<?php $contenu = ob_get_clean(); 
+ require './VUE/Template.php'; ?>
+<?= $contenu ?>

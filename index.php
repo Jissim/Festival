@@ -1,13 +1,12 @@
 <!-- manque le php -->
 <?php
-require 'Modele.php';
-
 try {
+  require './MODELE/Gestion.php';
   $connexion = connect();
-  require 'VueAccueil.php';
+  require './CONTROLEUR/Controleur.php';
 }
 catch (Exception $e) {
  $msgErreur = $e->getMessage();
-  require 'Erreur.php';
+  require './VUE/Erreur.php';
 }
-
+?>

@@ -2,7 +2,7 @@
 $user = 'root'; 
 $pass = ''; 
 // Data Source Name 
-$dsn = 'mysql:host=localhost;dbname=locaflot';
+$dsn = 'mysql:host=localhost;dbname=festival';
 
 try{ //tentative de connexion : on crée un objet de la classe PDO 
 $dbh= new PDO($dsn, $user, $pass); 

@@ -1,12 +1,10 @@
-<?php $titre = 'Attribution des chambres';
-
-require("Modele.php"); 
-require("ControlesEtGestionErreurs.inc.php");
-// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
-$connexion = getConnexion();
-
-ob_start ();
-
+<?php 
+    $title = 'Festival -  Modifier Attributions'; 
+?> 
+<?php ob_start() ?>
+<?php
+// Connexion à la base 'festival'
+$connexion = createConnexion();
 // EFFECTUER OU MODIFIER LES ATTRIBUTIONS POUR L'ENSEMBLE DES ÉTABLISSEMENTS
 
 // CETTE PAGE CONTIENT UN TABLEAU CONSTITUÉ DE 2 LIGNES D'EN-TÊTE (LIGNE TITRE ET 
@@ -20,12 +18,12 @@ $nb=$nbEtabOffrantChambres+1;
 // Détermination du pourcentage de largeur des colonnes "établissements"
 $pourcCol=50/$nbEtabOffrantChambres;
 
-$action=$_REQUEST['action'];
+$modif=$_REQUEST['modif'];
 
 // Si l'action est validerModifAttrib (cas où l'on vient de la page 
 // donnerNbChambres.php) alors on effectue la mise à jour des attributions dans 
 // la base 
-if ($action=='validerModifAttrib')
+if ($modif=='validerModifAttrib')
 {
    $idEtab=$_REQUEST['idEtab'];
    $idGroupe=$_REQUEST['idGroupe'];
@@ -48,10 +46,8 @@ class='tabQuadrille'>";
    <tr class='ligneTabQuad'>
       <td>&nbsp;</td>";
       
-   $sql=obtenirReqEtablissementsOffrantChambres();
-   // $rsEtab=mysql_query($req, $connexion);
-   $rsEtab=$connexion->query($sql);
-   // $lgEtab=mysql_fetch_array($rsEtab);
+   $req=obtenirReqEtablissementsOffrantChambres();
+   $rsEtab=$connexion->query($req);
    $lgEtab=$rsEtab->fetch(PDO::FETCH_ASSOC);
 
    // Boucle sur les établissements (pour afficher le nom de l'établissement et 
@@ -68,7 +64,6 @@ class='tabQuadrille'>";
       echo "
       <td valign='top' width='$pourcCol%'><i>Disponibilités : $nbChLib </i> <br>
       $nom </td>";
-      //$lgEtab=mysql_fetch_array($rsEtab);
       $lgEtab=$rsEtab->fetch(PDO::FETCH_ASSOC);
    }
    echo "
@@ -77,10 +72,8 @@ class='tabQuadrille'>";
    // CORPS DU TABLEAU : CONSTITUTION D'UNE LIGNE PAR GROUPE À HÉBERGER AVEC LES 
    // CHAMBRES ATTRIBUÉES ET LES LIENS POUR EFFECTUER OU MODIFIER LES ATTRIBUTIONS
          
-   $sql=obtenirReqIdNomGroupesAHeberger();
-   //$rsGroupe=mysql_query($req, $connexion);
-   $rsGroupe=$connexion->query($sql);
-   //$lgGroupe=mysql_fetch_array($rsGroupe);
+   $req=obtenirReqIdNomGroupesAHeberger();
+   $rsGroupe=$connexion->query($req);
    $lgGroupe=$rsGroupe->fetch(PDO::FETCH_ASSOC);
          
    // BOUCLE SUR LES GROUPES À HÉBERGER 
@@ -91,10 +84,8 @@ class='tabQuadrille'>";
       echo "
       <tr class='ligneTabQuad'>
          <td width='25%'>$nom</td>";
-      $sql=obtenirReqEtablissementsOffrantChambres();
-      //$rsEtab=mysql_query($req, $connexion);
-      $rsEtab=$connexion->query($sql);
-      //$lgEtab=mysql_fetch_array($rsEtab);
+      $req=obtenirReqEtablissementsOffrantChambres();
+      $rsEtab=$connexion->query($req);
       $lgEtab=$rsEtab->fetch(PDO::FETCH_ASSOC);
            
       // BOUCLE SUR LES ÉTABLISSEMENTS
@@ -122,7 +113,7 @@ class='tabQuadrille'>";
             $nbMax = $nbChLib + $nbOccupGroupe;
             echo "
             <td class='reserve'>
-            <a href='donnerNbChambres.php?idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbMax'>
+            <a href='index.php?action=donnerNbChambres&amp;idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbMax'>
             $nbOccupGroupe</a></td>";
          }
          else
@@ -134,7 +125,7 @@ class='tabQuadrille'>";
             {
                echo "
                <td class='reserveSiLien'>
-               <a href='donnerNbChambres.php?idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbChLib'>
+               <a href='index.php?action=donnerNbChambres&amp;idEtab=$idEtab&amp;idGroupe=$idGroupe&amp;nbChambres=$nbChLib'>
                __</a></td>";
             }
             else
@@ -142,11 +133,9 @@ class='tabQuadrille'>";
                echo "<td class='reserveSiLien'>&nbsp;</td>";
             }
          }    
-         //$lgEtab=mysql_fetch_array($rsEtab);
          $lgEtab=$rsEtab->fetch(PDO::FETCH_ASSOC);
       } // Fin de la boucle sur les établissements    
-      //$lgGroupe=mysql_fetch_array($rsGroupe); 
-         $lgGroupe=$rsGroupe->fetch(PDO::FETCH_ASSOC); 
+      $lgGroupe=$rsGroupe->fetch(PDO::FETCH_ASSOC);  
    } // Fin de la boucle sur les groupes à héberger
 echo "
 </table>"; // Fin du tableau principal
@@ -155,7 +144,7 @@ echo "
 echo "
 <table align='center' width='80%'>
    <tr>
-      <td width='34%' align='left'><a href='consultationAttributions.php'>Retour</a>
+      <td width='34%' align='left'><a href='index.php?action=consultationAttributions'>Retour</a>
       </td>
       <td class='reserveSiLien'>&nbsp;</td>
       <td width='30%' align='left'>Réservation possible si lien</td>
@@ -163,9 +152,9 @@ echo "
       <td width='30%' align='left'>Chambres réservées</td>
    </tr>
 </table>";
-$contenu = ob_get_clean ();
 
-require 'Vuetemplate.php';
-
-echo $contenu
 ?>
+
+<?php $contenu = ob_get_clean();
+ require './VUE/Template.php'; ?>
+<?= $contenu ?>
