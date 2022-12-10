@@ -6,7 +6,7 @@ ob_start();
 
 <?php $contenu = ob_get_clean();
 
-require 'Template.php'; 
+require './VUE/Template.php'; 
 
 echo $contenu;
 ?>
