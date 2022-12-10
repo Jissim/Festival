@@ -40,8 +40,15 @@ echo"
 ?>
 <?php $contenu = ob_get_clean (); 
 
+<<<<<<< HEAD:VUE/Accueil.php
 require './VUE/Template.php';?>
 <?= $contenu ?>
+=======
+$contenu = ob_get_clean (); 
+
+require './VUE/Template.php'; 
+
+>>>>>>> 7c0bab6b4d43e48e6d88592b14883d482f922596:vue/Accueil.php
 
 
 

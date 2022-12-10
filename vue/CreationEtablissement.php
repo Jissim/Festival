@@ -1,36 +1,40 @@
-<?php 
-    $title = 'Festival -  Modifier Etablissement'; 
-?> 
-<?php ob_start() ?>
-<?php
+<?php $titre = 'Créer un établissement';
+
+require("./MODELE/Gestion.php");
+require("./CONTROLEUR/ControlesEtGestionErreurs.inc.php");
+// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival 
+$connexion = getConnexion();
+
+ob_start ();
+
+// CRÉER UN ÉTABLISSEMENT 
 
 // Déclaration du tableau des civilités
 $tabCivilite=["M.","Mme","Melle"];  
-$modif=$_REQUEST['modif'];
-//$action=$_REQUEST['action']; inutile
-$id=$_REQUEST['id'];
 
-// Si on ne "vient" pas de ce formulaire, il faut récupérer les données à partir 
-// de la base (en appelant la fonction obtenirDetailEtablissement) sinon on 
-// affiche les valeurs précédemment contenues dans le formulaire
-if ($modif=='demanderModifEtab')
-{
-   $lgEtab=obtenirDetailEtablissement($connexion, $id);
-  
-   $nom=$lgEtab['nom'];
-   $adresseRue=$lgEtab['adresseRue'];
-   $codePostal=$lgEtab['codePostal'];
-   $ville=$lgEtab['ville'];
-   $tel=$lgEtab['tel'];
-   $adresseElectronique=$lgEtab['adresseElectronique'];
-   $type=$lgEtab['typeEtablissement'];
-   $civiliteResponsable=$lgEtab['civiliteResponsable'];
-   $nomResponsable=$lgEtab['nomResponsable'];
-   $prenomResponsable=$lgEtab['prenomResponsable'];
-   $nombreChambresOffertes=$lgEtab['nombreChambresOffertes'];
+$action=$_REQUEST['action'];
+
+// S'il s'agit d'une création et qu'on ne "vient" pas de ce formulaire (on 
+// "vient" de ce formulaire uniquement s'il y avait une erreur), il faut définir 
+// les champs à vide sinon on affichera les valeurs précédemment saisies
+if ($action=='demanderCreEtab') 
+{  
+   $id='';
+   $nom='';
+   $adresseRue='';
+   $ville='';
+   $codePostal='';
+   $tel='';
+   $adresseElectronique='';
+   $type=0;
+   $civiliteResponsable='Monsieur';
+   $nomResponsable='';
+   $prenomResponsable='';
+   $nombreChambresOffertes='';
 }
 else
 {
+   $id=$_REQUEST['id']; 
    $nom=$_REQUEST['nom']; 
    $adresseRue=$_REQUEST['adresseRue'];
    $codePostal=$_REQUEST['codePostal'];
@@ -43,29 +47,31 @@ else
    $prenomResponsable=$_REQUEST['prenomResponsable'];
    $nombreChambresOffertes=$_REQUEST['nombreChambresOffertes'];
 
-   verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, $ville,  
+   verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal, $ville, 
                         $tel, $nomResponsable, $nombreChambresOffertes);      
    if (nbErreurs()==0)
    {        
-      modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, $ville, 
-                            $tel, $adresseElectronique, $type, $civiliteResponsable, 
-                            $nomResponsable, $prenomResponsable, $nombreChambresOffertes);
+      creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, $ville,  
+                         $tel, $adresseElectronique, $type, $civiliteResponsable, 
+                         $nomResponsable, $prenomResponsable, $nombreChambresOffertes);
    }
 }
 
 echo "
-<form method='POST' action='index.php?&action=modificationEtablissements'>
-   <input type='hidden' value='validerModifEtab' name='modif'>
-   <table width='85%' cellspacing='0' cellpadding='0' align='center' 
+<form method='POST' action='creationEtablissement.php?'>
+   <input type='hidden' value='validerCreEtab' name='action'>
+   <table width='85%' align='center' cellspacing='0' cellpadding='0' 
    class='tabNonQuadrille'>
    
       <tr class='enTeteTabNonQuad'>
-         <td colspan='3'>$nom ($id)</td>
+         <td colspan='3'>Nouvel établissement</td>
       </tr>
-      <tr>
-         <td><input type='hidden' value='$id' name='id'></td>
+      <tr class='ligneTabNonQuad'>
+         <td> Id*: </td>
+         <td><input type='text' value='$id' name='id' size ='10' 
+         maxlength='8'></td>
       </tr>";
-      
+     
       echo '
       <tr class="ligneTabNonQuad">
          <td> Nom*: </td>
@@ -133,15 +139,15 @@ echo "
                      echo "<option>$tabCivilite[$i]</option>";
                   }
                echo '
-               </select>&nbsp; &nbsp; &nbsp; Nom*: 
+               </select>&nbsp; &nbsp; &nbsp; &nbsp; Nom*: 
                <input type="text" value="'.$nomResponsable.'" name=
                "nomResponsable" size="26" maxlength="25">
-               &nbsp; &nbsp; &nbsp; Prénom: 
+               &nbsp; &nbsp; &nbsp; &nbsp; Prénom: 
                <input type="text"  value="'.$prenomResponsable.'" name=
                "prenomResponsable" size="26" maxlength="25">
             </td>
          </tr>
-         <tr class="ligneTabNonQuad">
+          <tr class="ligneTabNonQuad">
             <td> Nombre chambres offertes*: </td>
             <td><input type="text" value="'.$nombreChambresOffertes.'" name=
             "nombreChambresOffertes" size ="2" maxlength="3"></td>
@@ -157,16 +163,15 @@ echo "
          </td>
       </tr>
       <tr>
-         <td colspan='2' align='center'><a href='index.php?action=listeEtablissements'>Retour</a>
+         <td colspan='2' align='center'><a href='listeEtablissements.php'>Retour</a>
          </td>
       </tr>
    </table>
-  
 </form>";
 
 // En cas de validation du formulaire : affichage des erreurs ou du message de 
 // confirmation
-if ($modif=='validerModifEtab')
+if ($action=='validerCreEtab')
 {
    if (nbErreurs()!=0)
    {
@@ -175,11 +180,12 @@ if ($modif=='validerModifEtab')
    else
    {
       echo "
-      <h5><center>La modification de l'établissement a été effectuée</center></h5>";
+      <h5><center>La création de l'établissement a été effectuée</center></h5>";
    }
 }
+$contenu = ob_get_clean ();
 
+require 'Vuetemplate.php';
+
+echo $contenu
 ?>
-<?php $contenu = ob_get_clean(); 
- require './VUE/Template.php'; ?>
-<?= $contenu ?>

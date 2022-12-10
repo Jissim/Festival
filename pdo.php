@@ -1,6 +1,6 @@
 <?PHP
 $user = 'root'; 
-$pass = ''; 
+$pass = 'root'; 
 // Data Source Name 
 $dsn = 'mysql:host=localhost;dbname=festival';
 

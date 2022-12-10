@@ -22,12 +22,12 @@ function getConnexion()
 function connect()
 {
     $dbh = new PDO('mysql:host=localhost;dbname=festival;charset=utf8',
-    'root','',array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    'root','123456789',array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
   return $dbh;
 }
 // {
 //    $user="root";
-//    $pass="root";
+//    $pass="123456789";
 //    $dsn = 'mysql:host=localhost;dbname=festival';
 //    $dbh= new PDO($dsn, $user, $pass); 
 //    return $dbh;
